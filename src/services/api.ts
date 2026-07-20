@@ -23,6 +23,7 @@ api.interceptors.response.use(
     if (axios.isAxiosError(error) && error.response?.status === 401) {
       localStorage.removeItem(AUTH_TOKEN_KEY);
       localStorage.removeItem(AUTH_USER_KEY);
+      window.dispatchEvent(new Event('mealmind:unauthorized'));
     }
     return Promise.reject(error instanceof Error ? error : new Error('Request failed'));
   },

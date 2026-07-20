@@ -4,6 +4,7 @@ import type {
   RecipeListResponse,
   RecipeSummary,
   ReviewListResponse,
+  CreateRecipeInput,
 } from '../types/recipe';
 
 export interface RecipeQueryParams {
@@ -66,4 +67,21 @@ export const addFavorite = async (recipeId: string): Promise<void> => {
 
 export const removeFavorite = async (recipeId: string): Promise<void> => {
   await api.delete(`/favorites/${recipeId}`);
+};
+
+export const createRecipe = async (input: CreateRecipeInput): Promise<Recipe> => {
+  const { data } = await api.post<{ data: Recipe }>('/recipes', input);
+  return data.data;
+};
+
+export const getMyRecipes = async (page = 1): Promise<{ data: Recipe[]; meta: RecipeListResponse['meta'] }> => {
+  const { data } = await api.get<{ data: Recipe[]; meta: RecipeListResponse['meta'] }>('/recipes/my-recipes', { params: { page, limit: 8 } });
+  return data;
+};
+
+export const deleteRecipe = async (id: string): Promise<void> => { await api.delete(`/recipes/${id}`); };
+
+export const getFavorites = async (page = 1): Promise<RecipeListResponse> => {
+  const { data } = await api.get<{ data: Array<{ _id: string; recipeId: RecipeSummary }>; meta: RecipeListResponse['meta'] }>('/favorites', { params: { page, limit: 8 } });
+  return { data: data.data.map((favorite) => favorite.recipeId), meta: data.meta };
 };

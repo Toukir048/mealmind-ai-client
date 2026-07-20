@@ -61,6 +61,26 @@ export interface RecipeListResponse {
   meta: PaginationMeta;
 }
 
+export interface CreateRecipeInput {
+  title: string;
+  shortDescription: string;
+  fullDescription: string;
+  image: string;
+  galleryImages: string[];
+  category: RecipeSummary['category'];
+  cuisine: string;
+  difficulty: RecipeSummary['difficulty'];
+  preparationTime: number;
+  cookingTime: number;
+  servings: number;
+  calories: number;
+  priceEstimate: number;
+  ingredients: Ingredient[];
+  instructions: string[];
+  dietaryTags: string[];
+  isPublished: boolean;
+}
+
 export interface ReviewListResponse {
   data: Review[];
   meta: PaginationMeta;

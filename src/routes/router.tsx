@@ -1,45 +1,51 @@
+import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-
+import { Loading } from '../components/loaders/Loading';
 import { GlobalLayout } from '../layouts/GlobalLayout';
-import { AboutPage } from '../pages/AboutPage';
-import { AIRecommendationsPage } from '../pages/AIRecommendationsPage';
-import { AIAssistantPage } from '../pages/AIAssistantPage';
-import { ContactPage } from '../pages/ContactPage';
-import { DashboardPage } from '../pages/DashboardPage';
-import { ExploreRecipesPage } from '../pages/ExploreRecipesPage';
-import { HomePage } from '../pages/HomePage';
-import { LoginPage } from '../pages/LoginPage';
-import { NotFoundPage } from '../pages/NotFoundPage';
-import { PrivacyPage } from '../pages/PrivacyPage';
-import { RegisterPage } from '../pages/RegisterPage';
-import { ProtectedPlaceholderPage } from '../pages/ProtectedPlaceholderPage';
-import { RecipeDetailsPage } from '../pages/RecipeDetailsPage';
 import { ProtectedRoute } from './ProtectedRoute';
 
-export const router = createBrowserRouter([
-  {
-    element: <GlobalLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-      { path: 'recipes', element: <ExploreRecipesPage /> },
-      { path: 'recipes/:slug', element: <RecipeDetailsPage /> },
-      { path: 'about', element: <AboutPage /> },
-      { path: 'contact', element: <ContactPage /> },
-      { path: 'privacy', element: <PrivacyPage /> },
-      { path: 'login', element: <LoginPage /> },
-      { path: 'register', element: <RegisterPage /> },
-      {
-        element: <ProtectedRoute />,
-        children: [
-          { path: 'ai-recommendations', element: <AIRecommendationsPage /> },
-          { path: 'ai-assistant', element: <AIAssistantPage /> },
-          { path: 'dashboard', element: <DashboardPage /> },
-          { path: 'recipes/add', element: <ProtectedPlaceholderPage eyebrow="Create" title="Add a recipe" description="Share a complete, practical recipe with ingredients, instructions, timing, dietary tags, and an inviting image." /> },
-          { path: 'recipes/manage', element: <ProtectedPlaceholderPage eyebrow="Your recipes" title="Manage your recipe collection" description="Review and maintain recipes you created while keeping ownership controls on the server." /> },
-          { path: 'favorites', element: <ProtectedPlaceholderPage eyebrow="Saved meals" title="Your favorite recipes" description="Return to recipes you saved and turn trusted favorites into a practical meal plan." /> },
-        ],
-      },
-      { path: '*', element: <NotFoundPage /> },
-    ],
-  },
-]);
+const load = <T extends Record<K, React.ComponentType>, K extends keyof T>(
+  importer: () => Promise<T>,
+  name: K,
+) => lazy(async () => ({ default: (await importer())[name] }));
+const HomePage = load(() => import('../pages/HomePage'), 'HomePage');
+const ExploreRecipesPage = load(() => import('../pages/ExploreRecipesPage'), 'ExploreRecipesPage');
+const RecipeDetailsPage = load(() => import('../pages/RecipeDetailsPage'), 'RecipeDetailsPage');
+const AboutPage = load(() => import('../pages/AboutPage'), 'AboutPage');
+const ContactPage = load(() => import('../pages/ContactPage'), 'ContactPage');
+const PrivacyPage = load(() => import('../pages/PrivacyPage'), 'PrivacyPage');
+const LoginPage = load(() => import('../pages/LoginPage'), 'LoginPage');
+const RegisterPage = load(() => import('../pages/RegisterPage'), 'RegisterPage');
+const NotFoundPage = load(() => import('../pages/NotFoundPage'), 'NotFoundPage');
+const AIRecommendationsPage = load(() => import('../pages/AIRecommendationsPage'), 'AIRecommendationsPage');
+const AIAssistantPage = load(() => import('../pages/AIAssistantPage'), 'AIAssistantPage');
+const DashboardPage = load(() => import('../pages/DashboardPage'), 'DashboardPage');
+const AddRecipePage = load(() => import('../pages/AddRecipePage'), 'AddRecipePage');
+const ManageRecipesPage = load(() => import('../pages/ManageRecipesPage'), 'ManageRecipesPage');
+const FavoritesPage = load(() => import('../pages/FavoritesPage'), 'FavoritesPage');
+const PreferencesPage = load(() => import('../pages/PreferencesPage'), 'PreferencesPage');
+const page = (content: ReactNode) => <Suspense fallback={<Loading label="Loading page" />}>{content}</Suspense>;
+
+export const router = createBrowserRouter([{
+  element: <GlobalLayout />,
+  children: [
+    { index: true, element: page(<HomePage />) },
+    { path: 'recipes', element: page(<ExploreRecipesPage />) },
+    { path: 'recipes/:slug', element: page(<RecipeDetailsPage />) },
+    { path: 'about', element: page(<AboutPage />) },
+    { path: 'contact', element: page(<ContactPage />) },
+    { path: 'privacy', element: page(<PrivacyPage />) },
+    { path: 'login', element: page(<LoginPage />) },
+    { path: 'register', element: page(<RegisterPage />) },
+    { element: <ProtectedRoute />, children: [
+      { path: 'ai-recommendations', element: page(<AIRecommendationsPage />) },
+      { path: 'ai-assistant', element: page(<AIAssistantPage />) },
+      { path: 'dashboard', element: page(<DashboardPage />) },
+      { path: 'recipes/add', element: page(<AddRecipePage />) },
+      { path: 'recipes/manage', element: page(<ManageRecipesPage />) },
+      { path: 'favorites', element: page(<FavoritesPage />) },
+      { path: 'preferences', element: page(<PreferencesPage />) },
+    ] },
+    { path: '*', element: page(<NotFoundPage />) },
+  ],
+}]);

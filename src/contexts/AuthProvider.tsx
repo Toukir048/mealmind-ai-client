@@ -40,6 +40,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
+    const handleUnauthorized = () => setUser(null);
+    window.addEventListener('mealmind:unauthorized', handleUnauthorized);
     const restoreSession = async (firebaseUser: FirebaseUser | null) => {
       try {
         if (localStorage.getItem(AUTH_TOKEN_KEY) !== null) {
@@ -64,11 +66,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     if (firebaseAuth === undefined) {
       void restoreSession(null);
-      return undefined;
+      return () => window.removeEventListener('mealmind:unauthorized', handleUnauthorized);
     }
-    return onAuthStateChanged(firebaseAuth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (firebaseUser) => {
       void restoreSession(firebaseUser);
     });
+    return () => { unsubscribe(); window.removeEventListener('mealmind:unauthorized', handleUnauthorized); };
   }, []);
 
   const value = useMemo<AuthContextValue>(

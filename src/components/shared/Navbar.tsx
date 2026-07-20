@@ -17,6 +17,7 @@ const privateLinks = [
   { to: '/recipes/add', label: 'Add Recipe' },
   { to: '/recipes/manage', label: 'Manage Recipes' },
   { to: '/favorites', label: 'Favorites' },
+  { to: '/preferences', label: 'Preferences' },
 ];
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -45,7 +46,7 @@ export function Navbar() {
             <details className="dropdown dropdown-end ml-2">
               <summary className="btn btn-ghost flex list-none items-center gap-2 px-2" aria-label="Open user menu">
                 {user.photoURL ? (
-                  <img className="size-8 rounded-full border border-stone-200 object-cover" src={user.photoURL} alt="" referrerPolicy="no-referrer" />
+                  <img className="size-8 rounded-full border border-stone-200 object-cover" src={user.photoURL} alt={`${user.name} profile`} referrerPolicy="no-referrer" />
                 ) : (
                   <span className="grid size-8 place-items-center rounded-full bg-emerald-100 text-primary"><FiUser /></span>
                 )}
@@ -86,7 +87,7 @@ export function Navbar() {
             ) : (
               <div className="mt-3 border-t border-stone-200 pt-3">
                 <div className="flex items-center gap-3 px-3 pb-3">
-                  {user.photoURL ? <img className="size-10 rounded-full object-cover" src={user.photoURL} alt="" referrerPolicy="no-referrer" /> : <span className="grid size-10 place-items-center rounded-full bg-emerald-100 text-primary"><FiUser /></span>}
+                  {user.photoURL ? <img className="size-10 rounded-full object-cover" src={user.photoURL} alt={`${user.name} profile`} referrerPolicy="no-referrer" /> : <span className="grid size-10 place-items-center rounded-full bg-emerald-100 text-primary"><FiUser /></span>}
                   <div className="min-w-0"><p className="truncate text-sm font-bold">{user.name}</p><p className="truncate text-xs text-stone-500">{user.email}</p></div>
                 </div>
                 <button className="btn btn-outline btn-sm w-full" onClick={() => { setMenuOpen(false); void logout(); }}><FiLogOut aria-hidden="true" /> Logout</button>
