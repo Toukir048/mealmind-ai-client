@@ -11,6 +11,7 @@ const publicLinks = [
 ];
 
 const privateLinks = [
+  { to: '/ai-assistant', label: 'AI Assistant' },
   { to: '/ai-recommendations', label: 'AI Recommendations' },
   { to: '/dashboard', label: 'Dashboard' },
   { to: '/recipes/add', label: 'Add Recipe' },
