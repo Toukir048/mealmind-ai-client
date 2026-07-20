@@ -1,5 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
+import { PageMeta } from './PageMeta';
+
 interface State { hasError: boolean }
 
 export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
@@ -14,6 +16,8 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
   public render() {
     if (this.state.hasError) {
       return (
+        <>
+        <PageMeta title="Application Error" description="MealMind AI could not load the requested page." keywords="MealMind AI error" robots="noindex,nofollow" />
         <main className="grid min-h-screen place-items-center bg-canvas p-6">
           <section className="max-w-md rounded-card bg-base-100 p-8 text-center shadow-soft">
             <h1 className="text-2xl font-bold text-neutral">Something went wrong</h1>
@@ -21,6 +25,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
             <button className="btn btn-primary mt-6" onClick={() => window.location.reload()}>Refresh page</button>
           </section>
         </main>
+        </>
       );
     }
     return this.props.children;

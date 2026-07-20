@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 import { RecipeCard } from '../components/cards/RecipeCard';
 import { RecipeCardSkeleton } from '../components/loaders/RecipeCardSkeleton';
+import { PageMeta } from '../components/shared/PageMeta';
 import { useAuth } from '../hooks/useAuth';
 import {
   addFavorite,
@@ -71,6 +72,13 @@ export function RecipeDetailsPage() {
 
   return (
     <div className="pb-20">
+      <PageMeta
+        title={recipe.title}
+        description={recipe.shortDescription}
+        keywords={`${recipe.title}, ${recipe.category} recipe, ${recipe.cuisine} cuisine, ${recipe.dietaryTags.join(', ')}`}
+        canonicalPath={`/recipes/${recipe.slug}`}
+        image={recipe.image}
+      />
       <section className="border-b border-stone-200 bg-base-100">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:py-14">
           <div>

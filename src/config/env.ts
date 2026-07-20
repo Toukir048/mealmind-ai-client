@@ -2,6 +2,10 @@ import { z } from 'zod';
 
 const envSchema = z.object({
   VITE_API_URL: z.string().url().default('http://localhost:5000/api/v1'),
+  VITE_SITE_URL: z.preprocess(
+    (value) => (typeof value === 'string' && value.trim() === '' ? undefined : value),
+    z.string().url().optional(),
+  ),
   VITE_FIREBASE_API_KEY: z.string().default(''),
   VITE_FIREBASE_AUTH_DOMAIN: z.string().default(''),
   VITE_FIREBASE_PROJECT_ID: z.string().default(''),

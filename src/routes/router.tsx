@@ -1,6 +1,6 @@
 import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import { Loading } from '../components/loaders/Loading';
+import { RouteLoading } from '../components/loaders/RouteLoading';
 import { GlobalLayout } from '../layouts/GlobalLayout';
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -24,7 +24,7 @@ const AddRecipePage = load(() => import('../pages/AddRecipePage'), 'AddRecipePag
 const ManageRecipesPage = load(() => import('../pages/ManageRecipesPage'), 'ManageRecipesPage');
 const FavoritesPage = load(() => import('../pages/FavoritesPage'), 'FavoritesPage');
 const PreferencesPage = load(() => import('../pages/PreferencesPage'), 'PreferencesPage');
-const page = (content: ReactNode) => <Suspense fallback={<Loading label="Loading page" />}>{content}</Suspense>;
+const page = (content: ReactNode) => <Suspense fallback={<RouteLoading />}>{content}</Suspense>;
 
 export const router = createBrowserRouter([{
   element: <GlobalLayout />,

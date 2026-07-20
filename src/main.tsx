@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'sonner';
 
@@ -14,13 +15,15 @@ if (root === null) throw new Error('Root element was not found');
 
 createRoot(root).render(
   <StrictMode>
-    <ErrorBoundary>
-      <QueryProvider>
-        <AuthProvider>
-          <RouterProvider router={router} />
-          <Toaster richColors position="top-right" />
-        </AuthProvider>
-      </QueryProvider>
-    </ErrorBoundary>
+    <HelmetProvider>
+      <ErrorBoundary>
+        <QueryProvider>
+          <AuthProvider>
+            <RouterProvider router={router} />
+            <Toaster richColors position="top-right" />
+          </AuthProvider>
+        </QueryProvider>
+      </ErrorBoundary>
+    </HelmetProvider>
   </StrictMode>,
 );
