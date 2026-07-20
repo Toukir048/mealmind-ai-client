@@ -8,6 +8,7 @@ import { LoginPage } from '../pages/LoginPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { ProtectedPlaceholderPage } from '../pages/ProtectedPlaceholderPage';
+import { RecipeDetailsPage } from '../pages/RecipeDetailsPage';
 import { ProtectedRoute } from './ProtectedRoute';
 
 export const router = createBrowserRouter([
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'recipes', element: <ExploreRecipesPage /> },
+      { path: 'recipes/:slug', element: <RecipeDetailsPage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'register', element: <RegisterPage /> },

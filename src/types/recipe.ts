@@ -15,6 +15,40 @@ export interface RecipeSummary {
   reviewCount: number;
 }
 
+export interface Ingredient {
+  name: string;
+  quantity: number;
+  unit?: string;
+}
+
+export interface Recipe extends RecipeSummary {
+  fullDescription: string;
+  galleryImages: string[];
+  servings: number;
+  priceEstimate: number;
+  ingredients: Ingredient[];
+  instructions: string[];
+  createdBy: string;
+  isPublished: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ReviewAuthor {
+  _id: string;
+  name: string;
+  photoURL?: string;
+}
+
+export interface Review {
+  _id: string;
+  userId: ReviewAuthor;
+  recipeId: string;
+  rating: number;
+  comment?: string;
+  createdAt: string;
+}
+
 export interface PaginationMeta {
   page: number;
   limit: number;
@@ -24,5 +58,10 @@ export interface PaginationMeta {
 
 export interface RecipeListResponse {
   data: RecipeSummary[];
+  meta: PaginationMeta;
+}
+
+export interface ReviewListResponse {
+  data: Review[];
   meta: PaginationMeta;
 }

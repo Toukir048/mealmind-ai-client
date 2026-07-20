@@ -17,11 +17,14 @@ export function RecipeCard({ recipe }: { recipe: RecipeSummary }) {
           <span className="flex items-center gap-1"><FiStar className="text-amber-600" aria-hidden="true" /> {recipe.averageRating.toFixed(1)}</span>
           <span>{recipe.calories} kcal</span>
         </div>
+        <p className="mt-3 text-xs font-bold uppercase tracking-wider text-stone-500">{recipe.category} · {recipe.difficulty}</p>
         <h3 className="mt-4 line-clamp-2 text-xl font-bold text-neutral">{recipe.title}</h3>
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-stone-600">{recipe.shortDescription}</p>
-        <Link className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-bold text-primary hover:text-emerald-700" to={`/recipes?search=${encodeURIComponent(recipe.title)}`}>
-          Find this recipe <FiArrowRight aria-hidden="true" />
+        <div className="mt-auto pt-5">
+        <Link className="btn btn-outline btn-sm w-full border-primary text-primary hover:bg-primary" to={`/recipes/${recipe.slug}`}>
+          View Details <FiArrowRight aria-hidden="true" />
         </Link>
+        </div>
       </div>
     </article>
   );
