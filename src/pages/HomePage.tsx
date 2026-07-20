@@ -77,7 +77,7 @@ export function HomePage() {
             <p className="mt-6 max-w-2xl text-lg leading-8 text-stone-600">Discover realistic recipes and get personalized meal guidance grounded in your time, tastes, and dietary preferences.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link className="btn btn-primary" to="/recipes">Explore Recipes <FiArrowRight aria-hidden="true" /></Link>
-              <Link className="btn border-amber-600 bg-amber-600 text-white hover:border-amber-700 hover:bg-amber-700" to="/assistant" state={{ preference: selectedPreference }}>Try AI Planner <FiZap aria-hidden="true" /></Link>
+              <Link className="btn border-amber-600 bg-amber-600 text-white hover:border-amber-700 hover:bg-amber-700" to="/ai-recommendations" state={{ preference: selectedPreference }}>Try AI Planner <FiZap aria-hidden="true" /></Link>
             </div>
           </div>
 
@@ -121,7 +121,7 @@ export function HomePage() {
 
       <section className="bg-stone-900 py-20 text-white" aria-labelledby="benefits-heading">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
-          <div><p className="text-sm font-bold uppercase tracking-[0.2em] text-amber-400">Agentic, with guardrails</p><h2 id="benefits-heading" className="mt-3 text-4xl font-extrabold tracking-tight">Recommendations that explain themselves</h2><p className="mt-5 leading-8 text-stone-300">MealMind combines deterministic database filters with Gemini ranking and explanations, keeping recipe facts connected to application data.</p><Link className="btn btn-primary mt-8" to="/assistant">Open AI Assistant</Link></div>
+          <div><p className="text-sm font-bold uppercase tracking-[0.2em] text-amber-400">Agentic, with guardrails</p><h2 id="benefits-heading" className="mt-3 text-4xl font-extrabold tracking-tight">Recommendations that explain themselves</h2><p className="mt-5 leading-8 text-stone-300">MealMind combines deterministic database filters with Gemini ranking and explanations, keeping recipe facts connected to application data.</p><Link className="btn btn-primary mt-8" to="/ai-recommendations">Try AI Recommendations</Link></div>
           <div className="grid gap-4 sm:grid-cols-2">{benefits.map(({ icon: Icon, title, text }) => <article key={title} className="rounded-card border border-stone-700 bg-stone-800 p-6"><Icon className="text-amber-400" size={23} /><h3 className="mt-5 text-lg font-bold">{title}</h3><p className="mt-2 leading-7 text-stone-300">{text}</p></article>)}</div>
         </div>
       </section>
