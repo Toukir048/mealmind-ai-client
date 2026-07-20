@@ -1,5 +1,16 @@
-import { PageIntro } from '../components/shared/PageIntro';
+import { FiDatabase, FiHeart, FiMessageCircle, FiShield } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 export function AboutPage() {
-  return <PageIntro eyebrow="About MealMind" title="Healthy choices without the guesswork" description="MealMind combines a curated recipe library with personalized, grounded AI guidance. Recommendations stay connected to recipes stored in the application, so you can move from an idea to clear ingredients and instructions." />;
+  const principles = [
+    [FiDatabase, 'Grounded suggestions', 'MealMind asks Gemini to rank recipes already stored in the application instead of presenting invented recipe records.'],
+    [FiHeart, 'Personal by design', 'Dietary preferences, disliked ingredients, cooking time, cuisine, and prior feedback help make each recommendation more useful.'],
+    [FiMessageCircle, 'Context that continues', 'The assistant keeps conversation history so follow-up questions can build naturally on the meals you are discussing.'],
+    [FiShield, 'People stay in control', 'AI guidance is informational. Recipe details remain visible so you can verify ingredients, nutrition, and allergy concerns yourself.'],
+  ] as const;
+  return <main>
+    <section className="bg-emerald-950 py-20 text-white sm:py-28"><div className="mx-auto max-w-5xl px-4 text-center sm:px-6"><p className="font-semibold uppercase tracking-widest text-amber-400">About MealMind AI</p><h1 className="mt-4 text-4xl font-bold sm:text-5xl">Better meal decisions, grounded in recipes you can cook</h1><p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-emerald-50">MealMind AI combines practical recipe discovery with personalized recommendations and a context-aware planning assistant. It is built to shorten the distance between “What should I eat?” and a realistic plan.</p></div></section>
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"><div className="grid gap-10 lg:grid-cols-2 lg:items-center"><div><p className="font-semibold text-primary">Why MealMind exists</p><h2 className="mt-2 text-3xl font-bold text-neutral">Healthy planning should feel manageable</h2><p className="mt-5 leading-7 text-stone-600">Recipe search often creates more choices without creating clarity. MealMind narrows those choices using your dietary needs, available time, cuisine preferences, calorie targets, and direct feedback.</p><p className="mt-4 leading-7 text-stone-600">Every recommendation remains connected to a real MealMind recipe, while the conversational assistant can help compare options or shape a multi-day meal plan.</p></div><div className="grid gap-4 sm:grid-cols-2">{principles.map(([Icon,title,description]) => <article key={title} className="rounded-card border border-stone-200 bg-stone-50 p-5"><Icon className="text-primary" size={24}/><h3 className="mt-4 font-bold text-neutral">{title}</h3><p className="mt-2 text-sm leading-6 text-stone-600">{description}</p></article>)}</div></div></section>
+    <section className="bg-amber-50 py-16"><div className="mx-auto max-w-4xl px-4 text-center sm:px-6"><h2 className="text-3xl font-bold text-neutral">Start with a recipe. Build a better routine.</h2><p className="mt-4 text-stone-600">Explore the public collection, then sign in when you are ready for preferences, saved meals, and personalized planning.</p><div className="mt-7 flex flex-wrap justify-center gap-3"><Link className="btn btn-primary" to="/recipes">Explore recipes</Link><Link className="btn border-stone-300 bg-white" to="/ai-recommendations">Try recommendations</Link></div></div></section>
+  </main>;
 }
