@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FiHeart, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { FiChevronDown, FiHeart, FiLogOut, FiMenu, FiUser, FiX } from 'react-icons/fi';
 import { Link, NavLink } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/useAuth';
@@ -41,9 +41,26 @@ export function Navbar() {
           {user === null ? (
             <Link to="/login" className="btn btn-primary btn-sm ml-2">Login</Link>
           ) : (
-            <button className="btn btn-ghost btn-sm ml-2 text-stone-700" onClick={() => void logout()}>
-              <FiLogOut aria-hidden="true" /> Logout
-            </button>
+            <details className="dropdown dropdown-end ml-2">
+              <summary className="btn btn-ghost flex list-none items-center gap-2 px-2" aria-label="Open user menu">
+                {user.photoURL ? (
+                  <img className="size-8 rounded-full border border-stone-200 object-cover" src={user.photoURL} alt="" referrerPolicy="no-referrer" />
+                ) : (
+                  <span className="grid size-8 place-items-center rounded-full bg-emerald-100 text-primary"><FiUser /></span>
+                )}
+                <span className="max-w-28 truncate text-sm font-semibold">{user.name}</span>
+                <FiChevronDown aria-hidden="true" />
+              </summary>
+              <div className="dropdown-content z-50 mt-2 w-64 rounded-card border border-stone-200 bg-base-100 p-3 shadow-soft">
+                <div className="border-b border-stone-100 px-2 pb-3">
+                  <p className="truncate font-bold text-neutral">{user.name}</p>
+                  <p className="truncate text-sm text-stone-500">{user.email}</p>
+                </div>
+                <button className="btn btn-ghost btn-sm mt-2 w-full justify-start text-stone-700" onClick={() => void logout()}>
+                  <FiLogOut aria-hidden="true" /> Logout
+                </button>
+              </div>
+            </details>
           )}
         </div>
 
@@ -66,9 +83,13 @@ export function Navbar() {
             {user === null ? (
               <Link to="/login" className="btn btn-primary btn-sm mt-2" onClick={() => setMenuOpen(false)}>Login</Link>
             ) : (
-              <button className="btn btn-outline btn-sm mt-2" onClick={() => { setMenuOpen(false); void logout(); }}>
-                <FiLogOut aria-hidden="true" /> Logout
-              </button>
+              <div className="mt-3 border-t border-stone-200 pt-3">
+                <div className="flex items-center gap-3 px-3 pb-3">
+                  {user.photoURL ? <img className="size-10 rounded-full object-cover" src={user.photoURL} alt="" referrerPolicy="no-referrer" /> : <span className="grid size-10 place-items-center rounded-full bg-emerald-100 text-primary"><FiUser /></span>}
+                  <div className="min-w-0"><p className="truncate text-sm font-bold">{user.name}</p><p className="truncate text-xs text-stone-500">{user.email}</p></div>
+                </div>
+                <button className="btn btn-outline btn-sm w-full" onClick={() => { setMenuOpen(false); void logout(); }}><FiLogOut aria-hidden="true" /> Logout</button>
+              </div>
             )}
           </div>
         </div>

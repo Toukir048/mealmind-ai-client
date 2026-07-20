@@ -8,6 +8,8 @@ const envSchema = z.object({
   VITE_FIREBASE_STORAGE_BUCKET: z.string().default(''),
   VITE_FIREBASE_MESSAGING_SENDER_ID: z.string().default(''),
   VITE_FIREBASE_APP_ID: z.string().default(''),
+  VITE_DEMO_EMAIL: z.string().email().default('demo@mealmind.local'),
+  VITE_DEMO_PASSWORD: z.string().min(8).default('change-this-demo-password'),
 });
 
 export const env = envSchema.parse(import.meta.env);

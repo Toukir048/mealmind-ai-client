@@ -6,6 +6,7 @@ import { ExploreRecipesPage } from '../pages/ExploreRecipesPage';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
+import { RegisterPage } from '../pages/RegisterPage';
 import { ProtectedPlaceholderPage } from '../pages/ProtectedPlaceholderPage';
 import { ProtectedRoute } from './ProtectedRoute';
 
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: 'recipes', element: <ExploreRecipesPage /> },
       { path: 'about', element: <AboutPage /> },
       { path: 'login', element: <LoginPage /> },
+      { path: 'register', element: <RegisterPage /> },
       {
         element: <ProtectedRoute />,
         children: [
