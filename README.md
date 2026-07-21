@@ -1,4 +1,4 @@
-# MealMind AI Client
+# MealMind AI Client .
 
 Responsive React frontend for MealMind AI. It uses Vite, strict TypeScript, React Router, TanStack Query, React Hook Form, Zod, Tailwind CSS, daisyUI, Recharts, Firebase Authentication, Axios, React Icons, and Sonner.
 
